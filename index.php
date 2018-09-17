@@ -75,8 +75,24 @@ if ($_GET['code']){
     $json = json_decode($json);
     $posts = $json->data;
     
-    echo $posts[0]->caption->text;
+    //echo $posts[0]->caption->text;
     echo "\n Size: "+sizeof($posts);
+    
+    for ($x = 0; $x < sizeof($posts); $x++) {
+    echo "<br>";
+    //stop is my hashtag
+    if (strpos($posts[$x]->caption->text, 'stop') !== false) {
+        echo 'true';
+        $url = $posts[$x]->link;
+        $username = $posts[$x]->user->full_name;
+        $sql = "INSERT INTO hashtagPosts(url,username) VALUES ('$url','$username')";
+            if (!mysqli_query($con, $sql)) {
+                echo "account notcreated";
+            }
+            
+    }
+    
+}
 	
 }
 else{
