@@ -71,9 +71,13 @@ if ($_GET['code']){
         echo curl_error($ch);
     }
     curl_close($ch);
-    json_decode($json);
-    $posts = $json->access_token;
-
+    //print_r(json_decode($json));
+    $json = json_decode($json);
+    $posts = $json->data;
+    
+    echo $posts[0]->caption->text;
+    echo "\n Size: "+sizeof($posts);
+	
 }
 else{
     
